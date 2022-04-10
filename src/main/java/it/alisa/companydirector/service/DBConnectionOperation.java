@@ -1,15 +1,10 @@
 package it.alisa.companydirector.service;
 
-import it.alisa.companydirector.controller.LoginController;
-import it.alisa.companydirector.handler.Handler;
 import it.alisa.companydirector.model.Roles;
 import it.alisa.companydirector.model.UserRoles;
 import it.alisa.companydirector.model.Users;
 import it.alisa.companydirector.model.WebUsers;
 import lombok.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -62,11 +57,10 @@ public class DBConnectionOperation {
         }
     }
 
-    public static boolean logout() {
+    public static void logout() {
         if (authenticated) {
             authenticated = false;
         }
-        return true;
     }
 
     public static boolean isAuthenticated() {
