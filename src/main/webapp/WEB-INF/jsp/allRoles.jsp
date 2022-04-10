@@ -63,15 +63,15 @@
 </nav>
 <c:choose>
     <c:when test="${empty roles_list}">
-        <div class="container text-center">
-            <h2>Групп не существует! Нажмите -> <a href="/addRolesPage"><span class="fa fa-plus"></span></a>
-                Чтобы добавить группу</h2>
-        </div>
+<%--        <div class="container text-center">--%>
+<%--            <h2>Групп не существует! Нажмите -> <a href="/addRolesPage"><span class="fa fa-plus"></span></a>--%>
+<%--                Чтобы добавить группу</h2>--%>
+<%--        </div>--%>
     </c:when>
     <c:otherwise>
         <div class="container text-center">
-            <h2>Список групп, нажмите -> <a href="/addRolesPage"><span class="fa fa-plus"></span></a>
-                Чтобы добавить группу</h2>
+<%--            <h2>Список групп, нажмите -> <a href="/addRolesPage"><span class="fa fa-plus"></span></a>--%>
+<%--                Чтобы добавить группу</h2>--%>
             <hr>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-sm" id="myTable">
