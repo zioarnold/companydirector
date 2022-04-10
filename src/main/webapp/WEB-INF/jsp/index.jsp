@@ -35,8 +35,8 @@
                     <a class="dropdown-item" href="/allUsers">Список пользователей</a>
                     <a class="dropdown-item" href="/allRoles">Список групп</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/massiveUploadPage">TODO</a>
-                    <a class="dropdown-item" href="/singleUploadPage">TODO</a>
+                    <a class="dropdown-item" href="/allHierarchy">Список отделов</a>
+                    <a class="dropdown-item" href="/allJobs">Список специализаций</a>
                 </div>
             </li>
             <li class="nav-item">

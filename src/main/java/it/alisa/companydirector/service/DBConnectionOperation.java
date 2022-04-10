@@ -1,9 +1,6 @@
 package it.alisa.companydirector.service;
 
-import it.alisa.companydirector.model.Roles;
-import it.alisa.companydirector.model.UserRoles;
-import it.alisa.companydirector.model.Users;
-import it.alisa.companydirector.model.WebUsers;
+import it.alisa.companydirector.model.*;
 import lombok.*;
 
 import java.sql.*;
@@ -21,6 +18,7 @@ public class DBConnectionOperation {
     private static List<Users> webUsersList = new ArrayList<>();
     private static List<UserRoles> userRolesList = new ArrayList<>();
     private static List<Roles> roles = new ArrayList<>();
+    private static List<Jobs> jobsList = new ArrayList<>();
 
     private static boolean authenticated = false;
 
@@ -67,14 +65,35 @@ public class DBConnectionOperation {
         return authenticated;
     }
 
+    public static Object getJobs() throws SQLException {
+        jobsList.clear();
+        Connection connection = DriverManager.getConnection(hostname + ":" + port + "/" + sid, DBConnectionOperation.username, DBConnectionOperation.password);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select job_name, id_hierarchy, hierarchy.name as hierarchy_name from position, hierarchy;");
+        while (resultSet.next()) {
+            Jobs jobs = new Jobs(resultSet.getString("JOB_NAME"),
+                    resultSet.getInt("ID_HIERARCHY"),
+                    resultSet.getString("HIERARCHY_NAME"));
+            jobsList.add(new Jobs(jobs));
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return jobsList;
+    }
+
     public static List<Users> getAllUsers() throws SQLException {
         webUsersList.clear();
         Connection connection = DriverManager.getConnection(hostname + ":" + port + "/" + sid, DBConnectionOperation.username, DBConnectionOperation.password);
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select user_name, role_name, display_name from web_users, user_roles where web_users.user_role_ref = user_roles.id;");
+        ResultSet resultSet = statement.executeQuery("select web_users.id as user_id, user_name, role_name, display_name, job_name, cast(salary as decimal), birth_date from web_users, user_roles, position where web_users.user_role_ref = user_roles.id and web_users.position_ref = position.id;");
         while (resultSet.next()) {
-            Users users = new Users(resultSet.getString("USER_NAME"), "",
-                    resultSet.getString("ROLE_NAME"), resultSet.getString("DISPLAY_NAME"));
+            Users users = new Users(resultSet.getInt("USER_ID"), resultSet.getString("USER_NAME"), "",
+                    resultSet.getString("ROLE_NAME"),
+                    resultSet.getString("DISPLAY_NAME"),
+                    resultSet.getString("JOB_NAME"),
+                    resultSet.getDouble("SALARY"),
+                    resultSet.getString("BIRTH_DATE"));
 
             webUsersList.add(new Users(users));
         }
@@ -82,6 +101,15 @@ public class DBConnectionOperation {
         statement.close();
         connection.close();
         return webUsersList;
+    }
+
+    public static boolean updateUser(String userId, String userName, String role, String userDisplayName, String userBirthDate, String userJobName, String userSalary) throws SQLException {
+        Connection connection = DriverManager.getConnection(hostname + ":" + port + "/" + sid, DBConnectionOperation.username, DBConnectionOperation.password);
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("update web_users set display_name = '" + userDisplayName + "', salary = '" + userSalary + "', birth_date = '" + userBirthDate + "', user_role_ref = " + role + "  where id = " + userId + ";");
+        statement.close();
+        connection.close();
+        return true;
     }
 
     public static List<UserRoles> getUserRolesList() throws SQLException {

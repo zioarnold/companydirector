@@ -17,7 +17,8 @@ public class UserController {
     public ModelAndView getAllUsers() throws SQLException {
         return new ModelAndView("allUsers")
                 .addObject("user_logged_in", WebUsers.displayName)
-                .addObject("all_users", DBConnectionOperation.getAllUsers());
+                .addObject("all_users", DBConnectionOperation.getAllUsers())
+                .addObject("user_roles_list", DBConnectionOperation.getUserRolesList());
     }
 
     @RequestMapping("/addUserPage")
@@ -41,5 +42,21 @@ public class UserController {
                     .addObject("errorMsg", ErrorCDStrings.E_9999_UNKNOWN_ERROR.getErrorMsg());
         } else
             return new ModelAndView("error").addObject("errorMsg", ErrorCDStrings.E_0001_UNKNOWN_ERROR.getErrorMsg());
+    }
+
+    @RequestMapping("/saveUser")
+    public ModelAndView saveUser(@RequestParam(name = "userId") String userId,
+                                 @RequestParam(name = "userName") String userName,
+                                 @RequestParam(name = "role") String role,
+                                 @RequestParam(name = "userDisplayName") String userDisplayName,
+                                 @RequestParam(name = "userBirthDate") String userBirthDate,
+                                 @RequestParam(name = "userJobName") String userJobName,
+                                 @RequestParam(name = "userSalary") String userSalary) throws SQLException {
+        if (DBConnectionOperation.updateUser(userId, userName, role, userDisplayName, userBirthDate, userJobName, userSalary)) {
+            return new ModelAndView("success")
+                    .addObject("user_logged_in", WebUsers.displayName)
+                    .addObject("successMsg", "Операция успешна,ы");
+        } else return new ModelAndView("error")
+                .addObject("errorMsg", ErrorCDStrings.E_9999_UNKNOWN_ERROR.getErrorMsg());
     }
 }

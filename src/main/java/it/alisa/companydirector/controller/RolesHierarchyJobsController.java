@@ -9,11 +9,18 @@ import org.springframework.web.servlet.ModelAndView;
 import java.sql.SQLException;
 
 @RestController
-public class RolesController {
+public class RolesHierarchyJobsController {
     @RequestMapping("allRoles")
     public ModelAndView allRoles() throws SQLException {
         return new ModelAndView("allRoles")
                 .addObject("user_logged_in", WebUsers.displayName)
                 .addObject("roles_list", DBConnectionOperation.getRoles());
+    }
+
+    @RequestMapping("allJobs")
+    public ModelAndView allJobs() throws SQLException {
+        return new ModelAndView("allJobs")
+                .addObject("user_logged_in", WebUsers.displayName)
+                .addObject("jobs_list", DBConnectionOperation.getJobs());
     }
 }

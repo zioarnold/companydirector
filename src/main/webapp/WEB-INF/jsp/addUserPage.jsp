@@ -36,11 +36,11 @@
                    data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Пользователи</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownUsers">
-                    <a class="dropdown-item" href="/allUsers">Список</a>
-                    <a class="dropdown-item" href="/searchUserOnLDAPPage">TODO</a>
+                    <a class="dropdown-item" href="/allUsers">Список пользователей</a>
+                    <a class="dropdown-item" href="/allRoles">Список групп</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/massiveUploadPage">TODO</a>
-                    <a class="dropdown-item" href="/singleUploadPage">TODO</a>
+                    <a class="dropdown-item" href="/allHierarchy">Список отделов</a>
+                    <a class="dropdown-item" href="/allJobs">Список специализаций</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -50,12 +50,12 @@
                 <a class="navbar-brand"><%=(String) request.getAttribute("user_logged_in") %>
                 </a>
             </li>
-            <%--            <li class="nav-item">--%>
-            <%--                <a class="nav-link">|</a>--%>
-            <%--            </li>--%>
-            <%--            <li class="nav-item">--%>
-            <%--                <a class="nav-link" href="/logout">Logout</a>--%>
-            <%--            </li>--%>
+            <li class="nav-item">
+                <a class="nav-link">|</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
         </ul>
     </div>
 </nav>
