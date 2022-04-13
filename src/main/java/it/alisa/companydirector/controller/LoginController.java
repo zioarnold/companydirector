@@ -3,8 +3,6 @@ package it.alisa.companydirector.controller;
 import it.alisa.companydirector.model.ErrorCDStrings;
 import it.alisa.companydirector.model.WebUsers;
 import it.alisa.companydirector.service.DBConnectionOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +34,8 @@ public class LoginController {
                                   @RequestParam(required = false, name = "password") String password) throws SQLException {
         initDB();
         if (DBConnectionOperation.login(username, password)) {
-            return new ModelAndView("index").addObject("user_logged_in", WebUsers.displayName);
+            return new ModelAndView("index").addObject("user_logged_in", WebUsers.displayName)
+                    .addObject("hierarchy_list", dbConnectionOperation.getHierarchyList());
         } else {
             return new ModelAndView("error")
                     .addObject("errorMsg", ErrorCDStrings.E_9999_UNKNOWN_ERROR.getErrorMsg());
@@ -44,9 +43,10 @@ public class LoginController {
     }
 
     @RequestMapping("/index")
-    public ModelAndView index() {
+    public ModelAndView index() throws SQLException {
         if (DBConnectionOperation.isAuthenticated()) {
-            return new ModelAndView("index").addObject("user_logged_in", WebUsers.displayName);
+            return new ModelAndView("index").addObject("user_logged_in", WebUsers.displayName)
+                    .addObject("hierarchy_list", dbConnectionOperation.getHierarchyList());
         } else
             return new ModelAndView("error").addObject("errorMsg", ErrorCDStrings.E_0001_UNKNOWN_ERROR.getErrorMsg());
     }

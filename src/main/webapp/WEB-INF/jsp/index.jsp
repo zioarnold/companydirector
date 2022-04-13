@@ -1,5 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="it.alisa.companydirector.model.Hierarchy" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% List<Hierarchy> hierarchyList = (List<Hierarchy>) request.getAttribute("hierarchy_list");%>
 <html>
 <head>
     <title>Company Directory</title>
@@ -15,7 +18,8 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e0e0d1 !important;">
     <a class="navbar-brand" href="/index">
-        <img src='<c:url value="img/eni-logo.png"/>' alt="CompanyDirectory" style="height: 20%; width: 20%;"/>Company<span
+        <img src='<c:url value="img/eni-logo.png"/>' alt="CompanyDirectory"
+             style="height: 20%; width: 20%;"/>Company<span
             style="color: yellow">Directory</span>
     </a>&nbsp;&nbsp;&nbsp;
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -55,6 +59,13 @@
         </ul>
     </div>
 </nav>
+Органиграмма: <%
+    for(Hierarchy hierarchy: hierarchyList){
+%>
+    <%=hierarchy.toString()+"\r\n"%>
+<%
+    }
+%>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -68,3 +79,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+
