@@ -44,6 +44,16 @@ public class UserController {
             return new ModelAndView("error").addObject("errorMsg", ErrorCDStrings.E_0001_UNKNOWN_ERROR.getErrorMsg());
     }
 
+    @RequestMapping("/deleteUser")
+    public ModelAndView deleteUser(@RequestParam(name = "userId") int userId) throws SQLException {
+        if (DBConnectionOperation.deleteUser(userId)) {
+            return new ModelAndView("success")
+                    .addObject("user_logged_in", WebUsers.displayName)
+                    .addObject("successMsg", "Операция успешна,ы");
+        } else return new ModelAndView("error")
+                .addObject("errorMsg", ErrorCDStrings.E_9999_UNKNOWN_ERROR.getErrorMsg());
+    }
+
     @RequestMapping("/saveUser")
     public ModelAndView saveUser(@RequestParam(name = "userId") String userId,
                                  @RequestParam(name = "userName") String userName,

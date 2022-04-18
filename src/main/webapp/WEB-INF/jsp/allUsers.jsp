@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% List<UserRoles> userRolesList = (List<UserRoles>) request.getAttribute("user_roles_list");%>
+<% List<Users> usersList = (List<Users>) request.getAttribute("all_users"); %>
 <html>
 <head>
     <title>Company Directory</title>
@@ -91,34 +92,30 @@
                         <th hidden>Дата рождения</th>
                         <th hidden>Занятость</th>
                         <th hidden>ЗП</th>
-                        <th></th>
-<%--                        <th></th>--%>
+                        <th>Действия</th>
+                            <%--                        <th></th>--%>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="web_users" items="${all_users}">
-                        <tr>
-                            <td class="u-userId" hidden>${web_users.userId}</td>
-                            <td class="u-userName">${web_users.userName}</td>
-                            <td class="u-userRoleRef">${web_users.userRoleRef}</td>
-                            <td class="u-userDisplayName">${web_users.displayName}</td>
-                            <td class="u-userBirthDate" hidden>${web_users.birthDate}</td>
-                            <td class="u-userJobName" hidden>${web_users.jobName}</td>
-                            <td class="u-userSalary" hidden>${web_users.salary}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                        data-target="#con-close-modal-add">
-                                    Изменить
-                                </button>
-                            </td>
-<%--                            <td>--%>
-<%--                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"--%>
-<%--                                        data-target="#con-close-modal-disable-user">--%>
-<%--                                    Удалить--%>
-<%--                                </button>--%>
-<%--                            </td>--%>
-                        </tr>
-                    </c:forEach>
+                    <%
+                        for (Users users : usersList) {
+                    %>
+                    <tr>
+                        <td class="u-userId" hidden><%=users.getUserId()%></td>
+                        <td class="u-userName"><%=users.getUserName()%></td>
+                        <td class="u-userRoleRef"><%=users.getUserRoleRef()%></td>
+                        <td class="u-userDisplayName"><%=users.getDisplayName()%></td>
+                        <td class="u-userBirthDate" hidden><%=users.getBirthDate()%></td>
+                        <td class="u-userJobName" hidden><%=users.getJobName()%></td>
+                        <td class="u-userSalary" hidden><%=users.getSalary()%></td>
+                        <td>
+                            <span data-toggle="modal" data-target="#con-close-modal-add" class="fa fa-search"></span>
+                            || <a href="/deleteUser?userId=<%=users.getUserId()%>"><span class="fa fa-trash"></span></a>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
                     </tbody>
                 </table>
             </div>
@@ -136,7 +133,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/saveUser" method="post">
+            <form action="${pageContext.request.contextPath}/saveUser" method="post">
                 <div class="modal-body">
                     <label hidden>ИД Пользователя
                         <input type="number" name="userId" class="form-control input-group input-group-sm u-userId"

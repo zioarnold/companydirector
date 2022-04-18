@@ -117,6 +117,15 @@ public class DBConnectionOperation {
         return true;
     }
 
+    public static boolean deleteUser(int userId) throws SQLException {
+        Connection connection = DriverManager.getConnection(hostname + ":" + port + "/" + sid, DBConnectionOperation.username, DBConnectionOperation.password);
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("delete from web_users where id = '" + userId + "';");
+        statement.close();
+        connection.close();
+        return true;
+    }
+
     public static List<UserRoles> getUserRolesList() throws SQLException {
         userRolesList.clear();
         Connection connection = DriverManager.getConnection(hostname + ":" + port + "/" + sid, DBConnectionOperation.username, DBConnectionOperation.password);
