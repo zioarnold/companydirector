@@ -21,8 +21,8 @@ public class DBConnectionOperation {
     private static List<UserRoles> userRolesList = new ArrayList<>();
     private static List<Roles> roles = new ArrayList<>();
     private static List<Jobs> jobsList = new ArrayList<>();
-    private List<Hierarchy> hierarchyList = new ArrayList<>();
-
+    private static List<Hierarchy> hierarchyList = new ArrayList<>();
+    private static List<HierarchyModel> hierarchyModels = new ArrayList<>();
     private static boolean authenticated = false;
 
     Logger logger = LoggerFactory.getLogger(DBConnectionOperation.class);
@@ -47,9 +47,9 @@ public class DBConnectionOperation {
                 return false;
             } else {
                 do {
-                    WebUsers.name = resultSet.getString("USER_NAME");
-                    WebUsers.password = resultSet.getString("USER_PWD");
-                    WebUsers.displayName = resultSet.getString("DISPLAY_NAME");
+                    Users.webName = resultSet.getString("USER_NAME");
+                    Users.webPassword = resultSet.getString("USER_PWD");
+                    Users.webDisplayName = resultSet.getString("DISPLAY_NAME");
                 } while (resultSet.next());
             }
             authenticated = true;
@@ -111,7 +111,7 @@ public class DBConnectionOperation {
     public static boolean updateUser(String userId, String userName, String role, String userDisplayName, String userBirthDate, String userJobName, String userSalary) throws SQLException {
         Connection connection = DriverManager.getConnection(hostname + ":" + port + "/" + sid, DBConnectionOperation.username, DBConnectionOperation.password);
         Statement statement = connection.createStatement();
-        statement.executeUpdate("update web_users set display_name = '" + userDisplayName + "', salary = '" + userSalary + "', birth_date = '" + userBirthDate + "', user_role_ref = " + role + "  where id = " + userId + ";");
+        statement.executeUpdate("update web_users set user_name = '" + userName + "', display_name = '" + userDisplayName + "', salary = '" + userSalary + "', birth_date = '" + userBirthDate + "', user_role_ref = " + role + "  where id = " + userId + ";");
         statement.close();
         connection.close();
         return true;
@@ -202,5 +202,20 @@ public class DBConnectionOperation {
         statement.close();
         connection.close();
         return hierarchyList;
+    }
+
+    public static List<HierarchyModel> getHierarchyMList() throws SQLException {
+        hierarchyModels.clear();
+        Connection connection = DriverManager.getConnection(hostname + ":" + port + "/" + sid, DBConnectionOperation.username, DBConnectionOperation.password);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("select * from hierarchy;");
+        while (resultSet.next()) {
+            HierarchyModel hierarchyModel = new HierarchyModel(resultSet.getInt("ID"), resultSet.getInt("ID_DEGREE"), resultSet.getString("NAME"));
+            hierarchyModels.add(new HierarchyModel(hierarchyModel));
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return hierarchyModels;
     }
 }

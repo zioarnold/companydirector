@@ -15,6 +15,11 @@ public class Users {
     public double salary;
     public String birthDate;
 
+    public static String webName;
+    public static String webPassword;
+    public static String webRole;
+    public static String webDisplayName;
+
     public Users(int userId, String user_name, String password, String role_name, String display_name
             , String jobName, double salary, String birthDate) {
         this.userId = userId;

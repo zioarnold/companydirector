@@ -1,15 +1,13 @@
 <%@ page import="java.util.List" %>
-<%@ page import="it.alisa.companydirector.model.Roles" %>
+<%@ page import="it.alisa.companydirector.model.HierarchyModel" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% List<Roles> rolesList = (List<Roles>) request.getAttribute("roles_list");%>
+<% List<HierarchyModel> hierarchyList = (List<HierarchyModel>) request.getAttribute("hierarchy_list");%>
 <html>
 <head>
     <title>Company Directory</title>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-    <meta http-equiv="Pragma" content="no-cache"/>
-    <meta http-equiv="Cache-Control" content="no-cache"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="css/background.css"/>
     <link type="text/javascript" href="js/bootstrap.js"/>
@@ -63,24 +61,21 @@
     </div>
 </nav>
 <c:choose>
-    <c:when test="${empty roles_list}">
-<%--        <div class="container text-center">--%>
-<%--            <h2>Групп не существует! Нажмите -> <a href="/addRolesPage"><span class="fa fa-plus"></span></a>--%>
-<%--                Чтобы добавить группу</h2>--%>
-<%--        </div>--%>
+    <c:when test="${empty hierarchy_list}">
+        <div class="container text-center">
+            <h2>Отделов не существует! Нажмите -> <a href="/addHierarchyPage"><span class="fa fa-plus"></span></a>
+                Чтобы добавить отдел</h2>
+        </div>
     </c:when>
     <c:otherwise>
         <div class="container text-center">
-<%--            <h2>Список групп, нажмите -> <a href="/addRolesPage"><span class="fa fa-plus"></span></a>--%>
-<%--                Чтобы добавить группу</h2>--%>
+            <h2>Список отделов, нажмите -> <a href="/addHierarchyPage"><span class="fa fa-plus"></span></a>
+                Чтобы добавить отдел</h2>
             <hr>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-sm" id="myTable">
                     <thead>
                     <tr>
-                        <th>
-                            ID
-                        </th>
                         <th>
                             Имя группы/роли
                         </th>
@@ -88,17 +83,10 @@
                     </thead>
                     <tbody>
                     <%
-                        for (Roles roles : rolesList) {
+                        for (HierarchyModel hierarchyModel : hierarchyList) {
                     %>
                     <tr>
-                        <td><%=roles.getRoleId()%>
-                        </td>
-                        <td><%=roles.getRoleName()%>
-                                <%--                            |--%>
-                                <%--                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"--%>
-                                <%--                                    data-target="#con-close-modal-disable-user">--%>
-                                <%--                                Изменить--%>
-                                <%--                            </button>--%>
+                        <td><%=hierarchyModel.getName()%>
                         </td>
                     </tr>
                     <% } %>

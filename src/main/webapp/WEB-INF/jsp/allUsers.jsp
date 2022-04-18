@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="css/background.css"/>
     <link type="text/javascript" href="js/bootstrap.js"/>
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
-    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
@@ -93,7 +93,6 @@
                         <th hidden>Занятость</th>
                         <th hidden>ЗП</th>
                         <th>Действия</th>
-                            <%--                        <th></th>--%>
                     </tr>
                     </thead>
                     <tbody>
@@ -109,7 +108,7 @@
                         <td class="u-userJobName" hidden><%=users.getJobName()%></td>
                         <td class="u-userSalary" hidden><%=users.getSalary()%></td>
                         <td>
-                            <span data-toggle="modal" data-target="#con-close-modal-add" class="fa fa-search"></span>
+                            <span data-toggle="modal" data-target="#con-close-modal-add" class="fa fa-search cssbuttongo"></span>
                             &nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/deleteUser?userId=<%=users.getUserId()%>"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
@@ -181,18 +180,9 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-        crossorigin="anonymous"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#con-close-modal-add').on('show.bs.modal', function (e) {
