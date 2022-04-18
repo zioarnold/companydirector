@@ -20,7 +20,7 @@
                 <h3>Войди в CD</h3>
             </div>
             <div class="card-body">
-                <form action="/login" method="post">
+                <form action="${pageContext.request.contextPath}/login" method="post">
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-user"></i></span>

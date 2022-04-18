@@ -19,7 +19,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e0e0d1 !important;">
-    <a class="navbar-brand" href="/index">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index">
         <img src='<c:url value="img/eni-logo.png"/>' alt="CompanyDirectory"
              style="height: 20%; width: 20%;"/>Company<span
             style="color: yellow">Directory</span>
@@ -31,18 +31,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index">Главная <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/index">Главная <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUsers" role="button"
                    data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Пользователи</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownUsers">
-                    <a class="dropdown-item" href="/allUsers">Список пользователей</a>
-                    <a class="dropdown-item" href="/allRoles">Список групп</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/allUsers">Список пользователей</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/allRoles">Список групп</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/allHierarchy">Список отделов</a>
-                    <a class="dropdown-item" href="/allJobs">Список специализаций</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/allHierarchy">Список отделов</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/allJobs">Список специализаций</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -56,7 +56,7 @@
                 <a class="nav-link">|</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/logout">Выйти</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
             </li>
         </ul>
     </div>
